@@ -26,8 +26,16 @@ function onKeyClick(key) {
   renderGameState();
 }
 
-function onEnterClick() {
-  console.log('ENTER');
+async function onEnterClick() {
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  const response = await fetch('/attempt', {
+    body: JSON.stringify({ attempt: gameState.guess }),
+    method: 'POST',
+    headers,
+  });
+  const state = await response.json();
+  console.log(state);
 }
 
 function onDeleteClick() {
