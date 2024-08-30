@@ -17,12 +17,9 @@ app.post('/game', (req, res) => {
 
 app.post('/attempt', (req, res) => {
   const attempt = req.body.attempt;
-  console.log('BODY', req.body);
   const state = JSON.parse(req.cookies.state);
-  console.log('ATTEMPT', attempt);
   state.attempts.push(attempt);
   res.cookie('state', JSON.stringify(state));
-  console.log('STATE', state);
   return res.json(state);
 });
 
