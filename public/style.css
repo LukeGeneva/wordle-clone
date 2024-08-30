@@ -3,10 +3,10 @@ body {
 }
 
 .board {
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
 }
 
 .row {
@@ -15,7 +15,7 @@ body {
 }
 
 .cell {
-    width: 3rem;
-    height: 3rem;
     border: 2px solid #3a3a3c;
+    height: 3rem;
+    width: 3rem;
 }
