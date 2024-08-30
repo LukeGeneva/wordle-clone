@@ -1,0 +1,21 @@
+body {
+    background: #121213;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.cell {
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid #3a3a3c;
+}
