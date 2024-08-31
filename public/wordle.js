@@ -1,6 +1,6 @@
+let guess = '';
 let gameState = {
-  attempt: 1,
-  guess: '',
+  attempts: [],
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,9 +20,9 @@ function onKeyClick(key) {
     return;
   }
 
-  if (gameState.guess.length === 5) return;
+  if (guess.length === 5) return;
 
-  gameState = { ...gameState, guess: gameState.guess + key.innerHTML };
+  guess = guess + key.innerHTML;
   renderGameState();
 }
 
@@ -30,27 +30,25 @@ async function onEnterClick() {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
   const response = await fetch('/attempt', {
-    body: JSON.stringify({ attempt: gameState.guess }),
+    body: JSON.stringify({ attempt: guess }),
     method: 'POST',
     headers,
   });
-  const state = await response.json();
-  console.log(state);
+  guess = '';
+  gameState = await response.json();
+  renderGameState();
 }
 
 function onDeleteClick() {
-  gameState = {
-    ...gameState,
-    guess: gameState.guess.slice(0, gameState.guess.length - 1),
-  };
+  guess = guess.slice(0, guess.length - 1);
   renderGameState();
 }
 
 function renderGameState() {
-  const rowIndex = gameState.attempt;
+  const rowIndex = gameState.attempts.length + 1;
   const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
   for (let i = 0; i < 5; i++) {
-    const char = gameState.guess[i] || '';
+    const char = guess[i] || '';
     const cell = row.querySelector(`.cell:nth-child(${i + 1})`);
     cell.innerHTML = char;
   }

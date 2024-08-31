@@ -17,9 +17,20 @@ app.post('/game', (req, res) => {
 
 app.post('/attempt', (req, res) => {
   const attempt = req.body.attempt;
+  if (attempt.length !== 5) {
+    return res.status(400).send('Attempt must be a 5-letter word.');
+  }
+
   const state = JSON.parse(req.cookies.state);
-  state.attempts.push(attempt);
+  const result = attempt.split('').map((c) => ({
+    letter: c,
+    inWord: true,
+    inPosition: true,
+  }));
+  state.attempts.push(result);
   res.cookie('state', JSON.stringify(state));
+
+  delete state.answer;
   return res.json(state);
 });
 
