@@ -55,6 +55,8 @@ function renderGameState() {
       const cell = row.querySelector(`.cell:nth-child(${j + 1})`);
       cell.innerHTML = letter;
       if (inPosition) cell.className += ' green';
+      else if (inWord) cell.className += ' yellow';
+      else cell.className += ' dark-gray';
     }
   }
 
