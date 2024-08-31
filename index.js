@@ -22,10 +22,10 @@ app.post('/attempt', (req, res) => {
   }
 
   const state = JSON.parse(req.cookies.state);
-  const result = attempt.split('').map((c) => ({
+  const result = attempt.split('').map((c, i) => ({
     letter: c,
-    inWord: true,
-    inPosition: true,
+    inWord: state.answer.includes(c),
+    inPosition: state.answer[i] === c,
   }));
   state.attempts.push(result);
   res.cookie('state', JSON.stringify(state));

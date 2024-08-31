@@ -45,7 +45,20 @@ function onDeleteClick() {
 }
 
 function renderGameState() {
-  const rowIndex = gameState.attempts.length + 1;
+  for (let i = 0; i < gameState.attempts.length; i++) {
+    const rowIndex = i + 1;
+    const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
+    for (let j = 0; j < 5; j++) {
+      const letter = gameState.attempts[i][j].letter;
+      const inWord = gameState.attempts[i][j].inWord;
+      const inPosition = gameState.attempts[i][j].inPosition;
+      const cell = row.querySelector(`.cell:nth-child(${j + 1})`);
+      cell.innerHTML = letter;
+      if (inPosition) cell.className += ' green';
+    }
+  }
+
+  let rowIndex = gameState.attempts.length + 1;
   const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
   for (let i = 0; i < 5; i++) {
     const char = guess[i] || '';
