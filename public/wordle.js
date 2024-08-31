@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const keys = document.querySelectorAll('.key');
   keys.forEach((key) => key.addEventListener('click', () => onKeyClick(key)));
   renderGameState();
+  renderKeyboard();
 });
 
 async function fetchGameState() {
@@ -48,6 +49,7 @@ async function onEnterClick() {
   guess = '';
   gameState = await response.json();
   renderGameState();
+  renderKeyboard();
 }
 
 function onDeleteClick() {
@@ -74,5 +76,22 @@ function renderGameState() {
     const char = guess[i] || '';
     const cell = row.querySelector(`.cell:nth-child(${i + 1})`);
     cell.innerHTML = char;
+  }
+}
+
+function renderKeyboard() {
+  const statuses = {};
+  for (let attempt of gameState.attempts) {
+    for (let result of attempt) {
+      statuses[result.letter] = result.status;
+    }
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key').values());
+  for (let letter of Object.keys(statuses)) {
+    const key = keys.find((k) => k.innerHTML === letter);
+    const className = statusClassMap[statuses[letter]];
+    if (!className) continue;
+    key.className += ` ${statusClassMap[statuses[letter]]}`;
   }
 }
