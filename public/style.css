@@ -20,8 +20,8 @@ body {
     border: 2px solid #3a3a3c;
     color: white;
     display: flex;
-    font-weight: bold;
     font-size: 2rem;
+    font-weight: bold;
     height: 3rem;
     justify-content: center;
     text-transform: uppercase;
@@ -64,4 +64,10 @@ body {
 .dark-gray {
     background-color: #3a3a3c;
     border-color: #3a3a3c;
+}
+
+.new-game {
+    padding-top: 3rem;
+    display: flex;
+    justify-content: center;
 }
