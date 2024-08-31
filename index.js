@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const { words } = require('./words');
+const { analyzeGuess } = require('./analyzeGuess');
 
 const app = express();
 app.use(cookieParser());
@@ -22,11 +23,7 @@ app.post('/attempt', (req, res) => {
   }
 
   const state = JSON.parse(req.cookies.state);
-  const result = attempt.split('').map((c, i) => ({
-    letter: c,
-    inWord: state.answer.includes(c),
-    inPosition: state.answer[i] === c,
-  }));
+  const result = analyzeGuess(attempt, state.answer);
   state.attempts.push(result);
   res.cookie('state', JSON.stringify(state));
 

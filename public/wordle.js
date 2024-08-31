@@ -2,6 +2,11 @@ let guess = '';
 let gameState = {
   attempts: [],
 };
+const statusClassMap = {
+  correct: 'green',
+  incorrect: 'dark-gray',
+  'wrong-position': 'yellow',
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const keys = document.querySelectorAll('.key');
@@ -49,14 +54,11 @@ function renderGameState() {
     const rowIndex = i + 1;
     const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
     for (let j = 0; j < 5; j++) {
-      const letter = gameState.attempts[i][j].letter;
-      const inWord = gameState.attempts[i][j].inWord;
-      const inPosition = gameState.attempts[i][j].inPosition;
+      const result = gameState.attempts[i][j];
       const cell = row.querySelector(`.cell:nth-child(${j + 1})`);
-      cell.innerHTML = letter;
-      if (inPosition) cell.className += ' green';
-      else if (inWord) cell.className += ' yellow';
-      else cell.className += ' dark-gray';
+      cell.innerHTML = result.letter;
+      const className = statusClassMap[result.status];
+      cell.className += ` ${className}`;
     }
   }
 
