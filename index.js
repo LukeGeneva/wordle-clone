@@ -8,6 +8,12 @@ app.use(cookieParser());
 app.use(express.static('public', { extensions: ['html'] }));
 app.use(express.json());
 
+app.get('/game/state', (req, res) => {
+  const state = JSON.parse(req.cookies.state);
+  delete state.answer;
+  return res.json(state);
+});
+
 app.post('/game', (req, res) => {
   const index = Math.floor(Math.random() * words.length);
   const word = words[index];

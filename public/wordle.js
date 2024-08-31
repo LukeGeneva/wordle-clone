@@ -1,17 +1,23 @@
 let guess = '';
-let gameState = {
-  attempts: [],
-};
+let gameState;
 const statusClassMap = {
   correct: 'green',
   incorrect: 'dark-gray',
   'wrong-position': 'yellow',
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  gameState = await fetchGameState();
   const keys = document.querySelectorAll('.key');
   keys.forEach((key) => key.addEventListener('click', () => onKeyClick(key)));
+  renderGameState();
 });
+
+async function fetchGameState() {
+  const response = await fetch('/game/state');
+  const state = await response.json();
+  return state;
+}
 
 function onKeyClick(key) {
   const innerHTML = key.innerHTML;
