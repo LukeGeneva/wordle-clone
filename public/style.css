@@ -38,6 +38,7 @@ body {
 
 .key {
     color: white;
+    cursor: pointer;
     background-color: #818384;
     font-weight: bold;
     font-size: 1.5rem;
@@ -67,7 +68,7 @@ body {
 }
 
 .new-game {
-    padding-top: 3rem;
     display: flex;
+    padding-top: 3rem;
     justify-content: center;
 }
