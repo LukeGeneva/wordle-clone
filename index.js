@@ -55,17 +55,10 @@ app.listen(3000, () => {
 
 function decryptGameState(req, res, next) {
   const encryptedCookie = req.cookies.state;
-
-  if (encryptedCookie) {
-    try {
-      const decryptedState = decryptCookie(encryptedCookie);
-      req.gameState = JSON.parse(decryptedState);
-      return next();
-    } catch (error) {
-      console.error('Failed to decrypt cookie:', error);
-      return res.status(400).send('Invalid cookie');
-    }
-  } else {
+  if (!encryptedCookie)
     return res.status(401).send('No game state cookie found');
-  }
+
+  const decryptedState = decryptCookie(encryptedCookie);
+  req.gameState = JSON.parse(decryptedState);
+  return next();
 }
