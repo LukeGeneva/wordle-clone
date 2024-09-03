@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-function encrypt(key, initializationVector, data) {
+const encrypt = (key, initializationVector) => (data) => {
   const cipher = crypto.createCipheriv(
     'aes-256-cbc',
     key,
@@ -9,9 +9,9 @@ function encrypt(key, initializationVector, data) {
   let encrypted = cipher.update(data, 'utf8', 'hex');
   encrypted += cipher.final('hex');
   return encrypted;
-}
+};
 
-function decrypt(key, initializationVector, encryptedData) {
+const decrypt = (key, initializationVector) => (encryptedData) => {
   const decipher = crypto.createDecipheriv(
     'aes-256-cbc',
     key,
@@ -20,6 +20,6 @@ function decrypt(key, initializationVector, encryptedData) {
   let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
-}
+};
 
 module.exports = { encrypt, decrypt };

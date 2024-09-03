@@ -10,6 +10,9 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 const INITIALIZATION_VECTOR = process.env.INITIALIZATION_VECTOR;
 
+const encryptCookie = encrypt(SECRET_KEY, INITIALIZATION_VECTOR);
+const decryptCookie = decrypt(SECRET_KEY, INITIALIZATION_VECTOR);
+
 const app = express();
 app.use(cookieParser());
 app.use(express.static('public', { extensions: ['html'] }));
@@ -25,11 +28,7 @@ app.post('/game', (req, res) => {
   const index = Math.floor(Math.random() * words.length);
   const word = words[index];
   const state = { answer: word, attempts: [] };
-  const encryptedState = encrypt(
-    SECRET_KEY,
-    INITIALIZATION_VECTOR,
-    JSON.stringify(state)
-  );
+  const encryptedState = encryptCookie(JSON.stringify(state));
   res.cookie('state', encryptedState);
   return res.redirect('/game');
 });
@@ -43,11 +42,7 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   const state = req.gameState;
   const result = analyzeGuess(attempt, state.answer);
   state.attempts.push(result);
-  const encryptedState = encrypt(
-    SECRET_KEY,
-    INITIALIZATION_VECTOR,
-    JSON.stringify(state)
-  );
+  const encryptedState = encryptCookie(JSON.stringify(state));
   res.cookie('state', encryptedState);
 
   delete state.answer;
@@ -63,11 +58,7 @@ function decryptGameState(req, res, next) {
 
   if (encryptedCookie) {
     try {
-      const decryptedState = decrypt(
-        SECRET_KEY,
-        INITIALIZATION_VECTOR,
-        encryptedCookie
-      );
+      const decryptedState = decryptCookie(encryptedCookie);
       req.gameState = JSON.parse(decryptedState);
       return next();
     } catch (error) {
