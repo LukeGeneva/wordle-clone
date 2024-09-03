@@ -8,6 +8,7 @@ const statusClassMap = {
 
 document.addEventListener('DOMContentLoaded', async () => {
   gameState = await fetchGameState();
+  document.addEventListener('keydown', onKeyDown);
   const keys = document.querySelectorAll('.key');
   keys.forEach((key) => key.addEventListener('click', () => onKeyClick(key)));
   renderGameState();
@@ -18,6 +19,15 @@ async function fetchGameState() {
   const response = await fetch('/game/state');
   const state = await response.json();
   return state;
+}
+
+function onKeyDown(e) {
+  if (e.code === 'Enter') return onEnterClick();
+  if (e.code === 'Backspace') return onDeleteClick();
+  if (!/Key[A-Z]/.test(e.code)) return;
+  if (guess.length === 5) return;
+  guess += e.code.replace('Key', '').toLowerCase();
+  renderGameState();
 }
 
 function onKeyClick(key) {
