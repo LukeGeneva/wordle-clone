@@ -49,7 +49,8 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   res.cookie('state', encryptedState);
 
   if (attempt === state.answer) state.status = 'win';
-  if (state.attempts.length === 6) state.status = 'loss';
+  else if (state.attempts.length === 6) state.status = 'loss';
+
   if (state.status === 'in-progress') delete state.answer;
 
   return res.json(state);
