@@ -67,8 +67,19 @@ body {
     border-color: #3a3a3c;
 }
 
-.new-game {
-    display: flex;
-    padding-top: 3rem;
-    justify-content: center;
+.modal {
+    display: none;
+    width: 50%;
+    background-color: white;
+    text-align: center;
+    padding: 2rem;
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0.25rem;
+}
+
+.modal-visible {
+    display: inline-block;
 }

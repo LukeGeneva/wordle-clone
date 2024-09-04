@@ -21,7 +21,7 @@ async function fetchGameState() {
   return state;
 }
 
-function onKeyDown(e) {
+async function onKeyDown(e) {
   if (e.code === 'Enter') return onEnterClick();
   if (e.code === 'Backspace') return onDeleteClick();
   if (!/Key[A-Z]/.test(e.code)) return;
@@ -81,12 +81,30 @@ function renderGameState() {
   }
 
   let rowIndex = gameState.attempts.length + 1;
-  const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
-  for (let i = 0; i < 5; i++) {
-    const char = guess[i] || '';
-    const cell = row.querySelector(`.cell:nth-child(${i + 1})`);
-    cell.innerHTML = char;
+  if (rowIndex <= 6) {
+    const row = document.querySelector(`.board .row:nth-child(${rowIndex})`);
+    for (let i = 0; i < 5; i++) {
+      const char = guess[i] || '';
+      const cell = row.querySelector(`.cell:nth-child(${i + 1})`);
+      cell.innerHTML = char;
+    }
   }
+
+  if (gameState.status === 'in-progress') {
+    return;
+  }
+  showEndGameModal();
+}
+
+function showEndGameModal() {
+  const endGameModal = document.getElementById('end-game-modal');
+  endGameModal.className += ' modal-visible';
+
+  const endGameMessage = document.getElementById('end-game-message');
+  const win = gameState.status === 'win';
+  endGameMessage.innerHTML = win
+    ? 'Nice Work!'
+    : gameState.answer.toUpperCase();
 }
 
 function renderKeyboard() {

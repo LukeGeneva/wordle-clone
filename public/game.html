@@ -87,9 +87,13 @@
         <button class="key key-special">BACK</button>
       </div>
     </div>
-    <form class="new-game" action="/game" method="POST">
-      <button type="submit">New Game</button>
-    </form>
+    <div id="end-game-modal" class="modal">
+      <h2 id="end-game-message">Nice work!</h2>
+
+      <form class="new-game" action="/game" method="POST">
+        <button type="submit">New Game</button>
+      </form>
+    </div>
     <script type="text/javascript" src="/wordle.js"></script>
   </body>
 </html>

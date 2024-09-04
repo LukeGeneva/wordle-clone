@@ -20,14 +20,16 @@ app.use(express.json());
 
 app.get('/game/state', [decryptGameState], (req, res) => {
   const state = req.gameState;
-  delete state.answer;
+  if (state.lastAttempt === state.answer) state.status = 'win';
+  if (state.attempts.length === 6) state.status = 'loss';
+  if (state.status === 'in-progress') delete state.answer;
   return res.json(state);
 });
 
 app.post('/game', (req, res) => {
   const index = Math.floor(Math.random() * words.length);
   const word = words[index];
-  const state = { answer: word, attempts: [] };
+  const state = { answer: word, attempts: [], status: 'in-progress' };
   const encryptedState = encryptCookie(JSON.stringify(state));
   res.cookie('state', encryptedState);
   return res.redirect('/game');
@@ -40,12 +42,17 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   }
 
   const state = req.gameState;
+  state.lastAttempt = attempt;
   const result = analyzeGuess(attempt, state.answer);
   state.attempts.push(result);
   const encryptedState = encryptCookie(JSON.stringify(state));
   res.cookie('state', encryptedState);
 
-  delete state.answer;
+  if (attempt === state.answer) state.status = 'win';
+  if (state.attempts.length === 6) state.status = 'loss';
+  if (state.status === 'in-progress') delete state.answer;
+
+  console.log(state);
   return res.json(state);
 });
 
