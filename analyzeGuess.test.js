@@ -38,4 +38,12 @@ test('that letters is wrong position are not reported more times than they appea
     { letter: 'l', status: 'incorrect' },
     { letter: 's', status: 'correct' },
   ]);
+
+  expect(analyzeGuess('paper', 'topaz')).toEqual([
+    { letter: 'p', status: 'incorrect' },
+    { letter: 'a', status: 'wrong-position' },
+    { letter: 'p', status: 'correct' },
+    { letter: 'e', status: 'incorrect' },
+    { letter: 'r', status: 'incorrect' },
+  ]);
 });
