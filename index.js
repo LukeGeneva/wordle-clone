@@ -52,7 +52,6 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   if (state.attempts.length === 6) state.status = 'loss';
   if (state.status === 'in-progress') delete state.answer;
 
-  console.log(state);
   return res.json(state);
 });
 
