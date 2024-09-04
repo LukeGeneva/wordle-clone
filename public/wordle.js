@@ -22,6 +22,7 @@ async function fetchGameState() {
 }
 
 async function onKeyDown(e) {
+  if (gameState.status !== 'in-progress') return;
   if (e.code === 'Enter') return onEnterClick();
   if (e.code === 'Backspace') return onDeleteClick();
   if (!/Key[A-Z]/.test(e.code)) return;
@@ -31,6 +32,8 @@ async function onKeyDown(e) {
 }
 
 function onKeyClick(key) {
+  if (gameState.status !== 'in-progress') return;
+
   const innerHTML = key.innerHTML;
   if (innerHTML === 'ENTER') {
     onEnterClick();
