@@ -1,0 +1,16 @@
+h1 {
+    font-size: 6rem;
+    color: white;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    font-size: 4rem;
+    text-transform: uppercase;
+    padding: 1rem;
+}
