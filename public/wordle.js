@@ -123,6 +123,14 @@ function renderKeyboard() {
     const key = keys.find((k) => k.innerHTML === letter);
     const className = statusClassMap[statuses[letter]];
     if (!className) continue;
-    key.className += ` ${statusClassMap[statuses[letter]]}`;
+    const color = statusClassMap[statuses[letter]];
+    setKeyColorClass(key, color);
   }
+}
+
+function setKeyColorClass(key, colorClass) {
+  key.classList.remove('green');
+  key.classList.remove('dark-gray');
+  key.classList.remove('yellow');
+  key.classList.add(colorClass);
 }
