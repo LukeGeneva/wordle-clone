@@ -7,8 +7,8 @@ const { decrypt, encrypt } = require('./crypto');
 
 dotenv.config();
 
-const SECRET_KEY = process.env.SECRET_KEY;
-const INITIALIZATION_VECTOR = process.env.INITIALIZATION_VECTOR;
+const SECRET_KEY = process.env.WORDLE_SECRET_KEY;
+const INITIALIZATION_VECTOR = process.env.WORDLE_INITIALIZATION_VECTOR;
 
 const encryptCookie = encrypt(SECRET_KEY, INITIALIZATION_VECTOR);
 const decryptCookie = decrypt(SECRET_KEY, INITIALIZATION_VECTOR);
