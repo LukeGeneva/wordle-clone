@@ -1,85 +1,105 @@
 body {
-    background: #121213;
-    font-family: Arial, Helvetica, sans-serif;
+  background: #121213;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .board {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .row {
-    display: flex;
-    gap: 0.3rem;
+  display: flex;
+  gap: 0.3rem;
 }
 
 .cell {
-    align-items: center;
-    border: 2px solid #3a3a3c;
-    color: white;
-    display: flex;
-    font-size: 2rem;
-    font-weight: bold;
-    height: 3rem;
-    justify-content: center;
-    text-transform: uppercase;
-    width: 3rem;
+  align-items: center;
+  border: 2px solid #3a3a3c;
+  color: white;
+  display: flex;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 3rem;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 3rem;
 }
 
 .keyboard {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-top: 1rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
 }
 
 .key {
-    color: white;
-    cursor: pointer;
-    background-color: #818384;
-    font-weight: bold;
-    font-size: 1.5rem;
-    height: 3.5rem;
-    text-transform: uppercase;
-    width: 2.5rem;
+  color: white;
+  cursor: pointer;
+  background-color: #818384;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 3.5rem;
+  text-transform: uppercase;
+  width: 2.5rem;
 }
 
 .key-special {
-    width: 5rem;
-    font-size: 1rem;
+  width: 5rem;
+  font-size: 1rem;
 }
 
 .green {
-    background-color: #538d4e;
-    border-color: #538d4e;
+  background-color: #538d4e;
+  border-color: #538d4e;
 }
 
 .yellow {
-    background-color: #b59f3b;
-    border-color: #b59f3b;
+  background-color: #b59f3b;
+  border-color: #b59f3b;
 }
 
 .dark-gray {
-    background-color: #3a3a3c;
-    border-color: #3a3a3c;
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
 }
 
 .modal {
-    display: none;
-    width: 50%;
-    background-color: white;
-    text-align: center;
-    padding: 2rem;
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 0.25rem;
+  display: none;
+  width: 50%;
+  background-color: white;
+  text-align: center;
+  padding: 2rem;
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.25rem;
 }
 
 .modal-visible {
-    display: inline-block;
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 90%;
+    padding: 1rem;
+    top: 1rem;
+    left: 5%;
+  }
+
+  .key {
+    font-size: 1rem;
+    height: 2.5rem;
+    width: 2rem;
+  }
+
+  .key-special {
+    width: 4rem;
+    font-size: 0.8rem;
+  }
 }
