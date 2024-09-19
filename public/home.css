@@ -1,16 +1,27 @@
 h1 {
-    font-size: 6rem;
-    color: white;
-    text-align: center;
+  font-size: 6rem;
+  color: white;
+  text-align: center;
 }
 
 form {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 button {
-    font-size: 4rem;
-    text-transform: uppercase;
-    padding: 1rem;
+  font-size: 4rem;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  button {
+    font-size: 2rem;
+    padding: 0.5rem;
+  }
 }
