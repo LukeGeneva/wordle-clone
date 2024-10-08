@@ -7,6 +7,9 @@ const statusClassMap = {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const dismissModalButton = document.getElementById('error-modal-dismiss');
+  dismissModalButton.addEventListener('click', dismissErrorModal);
+
   gameState = await fetchGameState();
   document.addEventListener('keydown', onKeyDown);
   const keys = document.querySelectorAll('.key');
@@ -54,15 +57,19 @@ function onKeyClick(key) {
 async function onEnterClick() {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
-  const response = await fetch('/attempt', {
-    body: JSON.stringify({ attempt: guess }),
-    method: 'POST',
-    headers,
-  });
-  guess = '';
-  gameState = await response.json();
-  renderGameState();
-  renderKeyboard();
+  try {
+    const response = await fetch('/attempt', {
+      body: JSON.stringify({ attempt: guess }),
+      method: 'POST',
+      headers,
+    });
+    guess = '';
+    gameState = await response.json();
+    renderGameState();
+    renderKeyboard();
+  } catch (error) {
+    showErrorModal('Invalid word');
+  }
 }
 
 function onDeleteClick() {
@@ -108,6 +115,18 @@ function showEndGameModal() {
   endGameMessage.innerHTML = win
     ? 'Nice Work!'
     : gameState.answer.toUpperCase();
+}
+
+function showErrorModal(message) {
+  const errorModal = document.getElementById('error-modal');
+  errorModal.classList.add('modal-visible');
+  const errorModalMessage = document.getElementById('error-modal-message');
+  errorModalMessage.innerHTML = message;
+}
+
+function dismissErrorModal() {
+  const errorModal = document.getElementById('error-modal');
+  errorModal.classList.remove('modal-visible');
 }
 
 function renderKeyboard() {

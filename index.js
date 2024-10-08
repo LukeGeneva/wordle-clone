@@ -37,9 +37,7 @@ app.post('/game', (req, res) => {
 
 app.post('/attempt', [decryptGameState], (req, res) => {
   const attempt = req.body.attempt;
-  if (attempt.length !== 5) {
-    return res.status(400).send('Attempt must be a 5-letter word.');
-  }
+  if (!words.includes(attempt)) return res.status(400).send('Invalid word.');
 
   const state = req.gameState;
   state.lastAttempt = attempt;
