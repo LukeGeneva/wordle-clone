@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const path = require('path');
 const { words } = require('./words');
 const { analyzeGuess } = require('./analyzeGuess');
 const { decrypt, encrypt } = require('./crypto');
@@ -15,7 +16,9 @@ const decryptCookie = decrypt(SECRET_KEY, INITIALIZATION_VECTOR);
 
 const app = express();
 app.use(cookieParser());
-app.use(express.static('public', { extensions: ['html'] }));
+app.use(
+  express.static(path.join(__dirname, 'public'), { extensions: ['html'] }),
+);
 app.use(express.json());
 
 app.get('/game/state', [decryptGameState], (req, res) => {
