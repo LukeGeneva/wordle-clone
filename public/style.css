@@ -45,6 +45,10 @@ body {
   height: 3.5rem;
   text-transform: uppercase;
   width: 2.5rem;
+
+  display: flex; /* Add flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center;
 }
 
 .key-special {
@@ -69,17 +73,17 @@ body {
 
 .modal {
   display: none;
-  width: 90%; /* Adjust width for smaller screens */
-  max-width: 500px; /* Limit the width on larger screens */
+  width: 90%;
+  max-width: 500px;
   background-color: white;
   text-align: center;
   padding: 2rem;
-  position: fixed; /* Changed to fixed */
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 0.25rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .modal-visible {
@@ -96,5 +100,22 @@ body {
   .key-special {
     width: 4rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .key {
+    font-size: 0.8rem;
+    height: 2.25rem;
+    width: 1.75rem;
+  }
+
+  .key-special {
+    width: 3.5rem;
+    font-size: 0.7rem;
+  }
+
+  .keyboard {
+    gap: 0.25rem;
   }
 }
