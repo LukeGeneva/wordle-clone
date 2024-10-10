@@ -1159,6 +1159,7 @@ const words = [
   'loser',
   'louse',
   'lousy',
+  'loved',
   'lover',
   'loves',
   'lower',
