@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const path = require('path');
 const { words } = require('./words');
+const { allowedGuesses } = require('./allowed-guesses');
 const { analyzeGuess } = require('./analyzeGuess');
 const { decrypt, encrypt } = require('./crypto');
 
@@ -17,7 +18,7 @@ const decryptCookie = decrypt(SECRET_KEY, INITIALIZATION_VECTOR);
 const app = express();
 app.use(cookieParser());
 app.use(
-  express.static(path.join(__dirname, 'public'), { extensions: ['html'] }),
+  express.static(path.join(__dirname, 'public'), { extensions: ['html'] })
 );
 app.use(express.json());
 
@@ -40,7 +41,8 @@ app.post('/game', (req, res) => {
 
 app.post('/attempt', [decryptGameState], (req, res) => {
   const attempt = req.body.attempt;
-  if (!words.includes(attempt)) return res.status(400).send('Invalid word.');
+  if (!allowedGuesses.includes(attempt) && !words.includes(attempt))
+    return res.status(400).send('Invalid word.');
 
   const state = req.gameState;
   state.lastAttempt = attempt;
@@ -57,7 +59,7 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   return res.json(state);
 });
 
-app.listen(3000, () => {
+app.listen(3010, () => {
   console.log('Server listening on port 3000.');
 });
 
