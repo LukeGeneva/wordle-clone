@@ -59,7 +59,7 @@ app.post('/attempt', [decryptGameState], (req, res) => {
   return res.json(state);
 });
 
-app.listen(3010, () => {
+app.listen(3000, () => {
   console.log('Server listening on port 3000.');
 });
 
